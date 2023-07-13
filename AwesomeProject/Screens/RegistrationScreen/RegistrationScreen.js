@@ -11,7 +11,7 @@ import Background from "../../images/Photo_BG.jpg";
 
 const RegistrationScreen = () => {
   const imageStyle = StyleSheet.absoluteFillObject;
-  const imageRef = React.useRef(null);
+  // const imageRef = React.useRef(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoginFocused, setLoginFocused] = useState(false);
   const [isEmailFocused, setEmailFocused] = useState(false);
@@ -43,12 +43,12 @@ const RegistrationScreen = () => {
     <View
       accessibilityIgnoresInvertColors={true}
       style={styles.containerBG}
-      ref={imageRef}
+      // ref={imageRef}
     >
       <Image
         source={Background}
         style={[imageStyle, styles.backgroundImage]}
-        ref={imageRef}
+        // ref={imageRef}
       />
       <View style={styles.container}>
         <View style={styles.photo}>
