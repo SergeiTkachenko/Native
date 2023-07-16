@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -6,15 +6,21 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import Background from "../../images/Photo_BG.jpg";
 
 const LoginScreen = () => {
   const imageStyle = StyleSheet.absoluteFillObject;
-  // const imageRef = React.useRef(null);
+  const [isKeyboardOpen, setKeyboardOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isEmailFocused, setEmailFocused] = useState(false);
   const [isPasswordFocused, setPasswordFocused] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -22,57 +28,104 @@ const LoginScreen = () => {
   const handleEmailFocus = () => {
     setEmailFocused(true);
     setPasswordFocused(false);
+    setKeyboardOpen(true);
   };
 
   const handlePasswordFocus = () => {
     setEmailFocused(false);
     setPasswordFocused(true);
+    setKeyboardOpen(true);
+  };
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardOpen(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardOpen(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  const handleLogin = () => {
+    if (email === "" || password === "") {
+      alert("Пожалуйста, введите адрес электронной почты и пароль.");
+      return;
+    } else {
+      alert(`email: ${email}, password: ${password}`);
+      console.log(`email: ${email}, password: ${password}`);
+    }
+
+    // отправить запрос авторизации на сервер
   };
 
   return (
-    <View
-      accessibilityIgnoresInvertColors={true}
-      style={styles.containerBG}
-      // ref={imageRef}
-    >
-      <Image
-        source={Background}
-        style={[imageStyle, styles.backgroundImage]}
-        // ref={imageRef}
-      />
-      <View style={styles.container}>
-        <Text style={styles.logInTitleText}>Увійти</Text>
-        <TextInput
-          style={[styles.input, isEmailFocused && styles.inputFocused]}
-          placeholder="Адреса електронної пошти"
-          onFocus={handleEmailFocus}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View accessibilityIgnoresInvertColors={true} style={styles.containerBG}>
+        <Image
+          source={Background}
+          style={[imageStyle, styles.backgroundImage]}
         />
-        <View style={styles.passwordInputContainer}>
-          <TextInput
-            style={[styles.input, isPasswordFocused && styles.inputFocused]}
-            secureTextEntry={!showPassword}
-            placeholder="Пароль"
-            onFocus={handlePasswordFocus}
-          />
-          <TouchableOpacity
-            style={styles.passwordToggleBtn}
-            onPress={toggleShowPassword}
+        <View style={[styles.container, isKeyboardOpen && styles.keyboardOpen]}>
+          <Text style={styles.logInTitleText}>Увійти</Text>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
-            <Text style={styles.passwordToggleBtnText}>
-              {showPassword ? "Сховати" : "Показати"}
+            <TextInput
+              style={[styles.input, isEmailFocused && styles.inputFocused]}
+              placeholder="Адреса електронної пошти"
+              onFocus={handleEmailFocus}
+              autoComplete="email"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </KeyboardAvoidingView>
+
+          <View style={styles.passwordInputContainer}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
+            >
+              <TextInput
+                style={[styles.input, isPasswordFocused && styles.inputFocused]}
+                secureTextEntry={!showPassword}
+                placeholder="Пароль"
+                onFocus={handlePasswordFocus}
+                autoComplete="password"
+                value={password}
+                onChangeText={setPassword}
+              />
+            </KeyboardAvoidingView>
+
+            <TouchableOpacity
+              style={styles.passwordToggleBtn}
+              onPress={toggleShowPassword}
+            >
+              <Text style={styles.passwordToggleBtnText}>
+                {showPassword ? "Сховати" : "Показати"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.logInBtn} onPress={handleLogin}>
+            <Text style={styles.logInBtnText}>Увійти</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.registrationBtnBtn}>
+              Немає акаунту? Зареєструватися
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.logInBtn}>
-          <Text style={styles.logInBtnText}>Увійти</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.registrationBtnBtn}>
-            Немає акаунту? Зареєструватися
-          </Text>
-        </TouchableOpacity>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -94,6 +147,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     alignItems: "center",
     borderRadius: 25,
+  },
+
+  keyboardOpen: {
+    width: 410,
+    height: 549,
+    marginTop: 355,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    borderRadius: 25,
+    marginBottom: 200,
   },
 
   logInTitleText: {
