@@ -13,25 +13,37 @@ import {
 } from "react-native";
 import Background from "../../images/Photo_BG.jpg";
 
-const LoginScreen = () => {
+export const RegistrationScreen = () => {
   const imageStyle = StyleSheet.absoluteFillObject;
   const [isKeyboardOpen, setKeyboardOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoginFocused, setLoginFocused] = useState(false);
   const [isEmailFocused, setEmailFocused] = useState(false);
   const [isPasswordFocused, setPasswordFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [login, setLogin] = useState("");
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleLoginFocus = () => {
+    setLoginFocused(true);
+    setEmailFocused(false);
+    setPasswordFocused(false);
+    setKeyboardOpen(true);
+  };
+
   const handleEmailFocus = () => {
+    setLoginFocused(false);
     setEmailFocused(true);
     setPasswordFocused(false);
     setKeyboardOpen(true);
   };
 
   const handlePasswordFocus = () => {
+    setLoginFocused(false);
     setEmailFocused(false);
     setPasswordFocused(true);
     setKeyboardOpen(true);
@@ -57,13 +69,13 @@ const LoginScreen = () => {
     };
   }, []);
 
-  const handleLogin = () => {
-    if (email === "" || password === "") {
+  const handleRegistration = () => {
+    if (email === "" || password === "" || login === "") {
       alert("Пожалуйста, введите адрес электронной почты и пароль.");
       return;
     } else {
-      alert(`email: ${email}, password: ${password}`);
-      console.log(`email: ${email}, password: ${password}`);
+      alert(`login: ${login}, email: ${email}, password: ${password}`);
+      console.log(`login: ${login}, email: ${email}, password: ${password}`);
     }
 
     // отправить запрос авторизации на сервер
@@ -77,10 +89,23 @@ const LoginScreen = () => {
           style={[imageStyle, styles.backgroundImage]}
         />
         <View style={[styles.container, isKeyboardOpen && styles.keyboardOpen]}>
-          <Text style={styles.logInTitleText}>Увійти</Text>
+          <View style={styles.photo}>
+            <TouchableOpacity style={styles.addPhoto}>
+              <Text style={styles.addPhotoText}>+</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.registrationTitleText}>Реєстрація</Text>
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
+            <TextInput
+              style={[styles.input, isLoginFocused && styles.inputFocused]}
+              placeholder="Логін"
+              onFocus={handleLoginFocus}
+              value={login}
+              onChangeText={setLogin}
+            />
+
             <TextInput
               style={[styles.input, isEmailFocused && styles.inputFocused]}
               placeholder="Адреса електронної пошти"
@@ -89,12 +114,8 @@ const LoginScreen = () => {
               value={email}
               onChangeText={setEmail}
             />
-          </KeyboardAvoidingView>
 
-          <View style={styles.passwordInputContainer}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS == "ios" ? "padding" : "height"}
-            >
+            <View style={styles.passwordInputContainer}>
               <TextInput
                 style={[styles.input, isPasswordFocused && styles.inputFocused]}
                 secureTextEntry={!showPassword}
@@ -104,24 +125,25 @@ const LoginScreen = () => {
                 value={password}
                 onChangeText={setPassword}
               />
-            </KeyboardAvoidingView>
 
-            <TouchableOpacity
-              style={styles.passwordToggleBtn}
-              onPress={toggleShowPassword}
-            >
-              <Text style={styles.passwordToggleBtnText}>
-                {showPassword ? "Сховати" : "Показати"}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity style={styles.logInBtn} onPress={handleLogin}>
-            <Text style={styles.logInBtnText}>Увійти</Text>
+              <TouchableOpacity
+                style={styles.passwordToggleBtn}
+                onPress={toggleShowPassword}
+              >
+                <Text style={styles.passwordToggleBtnText}>
+                  {showPassword ? "Сховати" : "Показати"}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+          <TouchableOpacity
+            style={styles.registrationBtn}
+            onPress={handleRegistration}
+          >
+            <Text style={styles.registrationBtnText}>Зареєстуватися</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.registrationBtnBtn}>
-              Немає акаунту? Зареєструватися
-            </Text>
+            <Text style={styles.logInBtn}>Вже є акаунт? Увійти</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -139,7 +161,6 @@ const styles = StyleSheet.create({
     width: 410,
     height: 910,
   },
-
   container: {
     width: 410,
     height: 549,
@@ -148,7 +169,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 25,
   },
-
   keyboardOpen: {
     width: 410,
     height: 549,
@@ -156,10 +176,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     alignItems: "center",
     borderRadius: 25,
-    marginBottom: 200,
+    marginBottom: 450,
   },
 
-  logInTitleText: {
+  registrationTitleText: {
     fontSize: 30,
     fontWeight: "500",
     lineHeight: 35,
@@ -167,7 +187,30 @@ const styles = StyleSheet.create({
     marginTop: 36,
     marginBottom: 30,
   },
-
+  photo: {
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    backgroundColor: "#F6F6F6",
+    marginTop: -60,
+  },
+  addPhoto: {
+    marginTop: 80,
+    marginLeft: 107,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 25,
+    height: 25,
+    borderRadius: 15,
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FF6C00",
+    borderWidth: 2,
+  },
+  addPhotoText: {
+    fontSize: 22,
+    color: "#FF6C00",
+    marginTop: "-25%",
+  },
   input: {
     width: 370,
     height: 50,
@@ -180,12 +223,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     fontSize: 16,
   },
-
   inputFocused: {
     borderColor: "#FF6C00",
     backgroundColor: "#FFFFFF",
   },
-
+  passwordToggleBtn: {},
   passwordToggleBtnText: {
     fontSize: 16,
     color: "#1B4371",
@@ -193,8 +235,7 @@ const styles = StyleSheet.create({
     marginTop: -48,
     marginLeft: 285,
   },
-
-  logInBtn: {
+  registrationBtn: {
     width: 343,
     height: 51,
     borderRadius: 100,
@@ -203,17 +244,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  logInBtnText: {
+  registrationBtnText: {
     fontSize: 16,
     color: "#FFFFFF",
   },
-
-  registrationBtnBtn: {
+  logInBtn: {
     fontSize: 16,
     color: "#1B4371",
     marginTop: 14,
   },
 });
 
-export default LoginScreen;
+// export default RegistrationScreen;

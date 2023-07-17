@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "placeName": "forest",
+    "location": "Ukraine"
+  },
+  {
+    "id": "2",
+    "placeName": "desert",
+    "location": "Egypt"
+  },
+  {
+    "id": "3",
+    "placeName": "ocean",
+    "location": "Bali"
+  }
+]
