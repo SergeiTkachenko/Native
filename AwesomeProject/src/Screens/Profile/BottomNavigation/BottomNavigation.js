@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderTopWidth: 1,
     position: "absolute",
-    bottom: 0,
+    bottom: "10%",
   },
 
   addPublication: {

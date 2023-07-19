@@ -12,12 +12,18 @@ import {
   Keyboard,
   ScrollView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const HeaderAddPublication = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>Створити публікацію</Text>
-      <TouchableOpacity style={styles.back} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.back}
+        onPress={() => navigation.navigate("Home")}
+      >
         <Ionicons name="arrow-back" size={24} color="#212121" />
       </TouchableOpacity>
     </View>

@@ -19,7 +19,7 @@ export const CharacterInfo = () => {
       <View style={styles.characterPhoto}></View>
       <View style={styles.characterTextContainer}>
         <Text style={styles.characterName}>Name Name</Text>
-        <Text style={styles.characterEmail}>email@gmail.com</Text>
+        <Text style={styles.characterEmail}>"No email provided"</Text>
       </View>
     </View>
   );

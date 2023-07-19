@@ -12,6 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 import Background from "../../images/Photo_BG.jpg";
+import { useNavigation } from "@react-navigation/native";
 
 export const RegistrationScreen = () => {
   const imageStyle = StyleSheet.absoluteFillObject;
@@ -23,6 +24,8 @@ export const RegistrationScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState("");
+
+  const navigation = useNavigation();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -143,7 +146,12 @@ export const RegistrationScreen = () => {
             <Text style={styles.registrationBtnText}>Зареєстуватися</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.logInBtn}>Вже є акаунт? Увійти</Text>
+            <Text
+              style={styles.logInBtn}
+              onPress={() => navigation.navigate("Login")}
+            >
+              Вже є акаунт? Увійти
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

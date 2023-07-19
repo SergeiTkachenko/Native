@@ -12,6 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 import Background from "../../images/Photo_BG.jpg";
+import { useNavigation } from "@react-navigation/native";
 
 export const LoginScreen = () => {
   const imageStyle = StyleSheet.absoluteFillObject;
@@ -21,6 +22,8 @@ export const LoginScreen = () => {
   const [isPasswordFocused, setPasswordFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -64,6 +67,7 @@ export const LoginScreen = () => {
     } else {
       alert(`email: ${email}, password: ${password}`);
       console.log(`email: ${email}, password: ${password}`);
+      navigation.navigate("Home");
     }
 
     // отправить запрос авторизации на сервер
@@ -115,7 +119,10 @@ export const LoginScreen = () => {
             <Text style={styles.logInBtnText}>Увійти</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.registrationBtnBtn}>
+            <Text
+              style={styles.registrationBtnBtn}
+              onPress={() => navigation.navigate("Registration")}
+            >
               Немає акаунту? Зареєструватися
             </Text>
           </TouchableOpacity>

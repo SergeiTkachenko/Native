@@ -12,12 +12,18 @@ import {
   Keyboard,
   ScrollView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const HeaderHome = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>Публікації</Text>
-      <TouchableOpacity style={styles.logOut} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.logOut}
+        onPress={() => navigation.navigate("Login")}
+      >
         <Feather name="log-out" size={24} color="#BDBDBD" />
       </TouchableOpacity>
     </View>
