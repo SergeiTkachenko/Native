@@ -12,15 +12,21 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export const Publication = ({ placeName, location }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.publicationPhoto}></View>
       <View style={styles.descriptionGroup}>
         <Text style={styles.publicationName}>{placeName}</Text>
         <View style={styles.rowGroup}>
-          <TouchableOpacity style={styles.publicationComments}>
+          <TouchableOpacity
+            style={styles.publicationComments}
+            onPress={() => navigation.navigate("CommentsScreen")}
+          >
             <Feather name="message-circle" size={24} color="#BDBDBD">
               <Text> 0</Text>
             </Feather>
@@ -43,15 +49,15 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   publicationPhoto: {
-    width: 343,
-    height: 240,
+    width: "90%",
+    aspectRatio: 4 / 3,
     backgroundColor: "#bdb6b6",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
   },
   descriptionGroup: {
-    width: 343,
+    width: "90%",
     alignItems: "flex-start",
     justifyContent: "flex-start",
     marginTop: 10,

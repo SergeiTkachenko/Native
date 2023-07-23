@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     height: 910,
   },
   container: {
+    backgroundColor: "#fff",
     width: 410,
     height: 549,
     marginTop: 355,

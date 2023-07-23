@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
+    backgroundColor: "#fff",
     width: 410,
     height: 549,
     marginTop: 355,
