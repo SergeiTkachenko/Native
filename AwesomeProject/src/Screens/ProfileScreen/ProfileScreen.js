@@ -17,7 +17,7 @@ import { BottomNavigation } from "./BottomNavigation/BottomNavigation";
 import publicationList from "../../db/db.json";
 import { Publication } from "../Home/Publication/Publication";
 
-export const Profile = () => {
+export const ProfileScreen = () => {
   return (
     <View accessibilityIgnoresInvertColors={true} style={styles.containerBG}>
       <Image source={Background} style={styles.backgroundImage} />

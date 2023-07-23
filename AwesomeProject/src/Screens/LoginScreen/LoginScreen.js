@@ -25,6 +25,8 @@ export const LoginScreen = () => {
 
   const navigation = useNavigation();
 
+  const emailSchema = /^\S+@\S+\.\S+$/;
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -61,8 +63,11 @@ export const LoginScreen = () => {
   }, []);
 
   const handleLogin = () => {
-    if (email === "" || password === "") {
-      alert("Пожалуйста, введите адрес электронной почты и пароль.");
+    if (!emailSchema.test(email)) {
+      alert("Пожалуйста, введите действительный адрес электронной почты.");
+      return;
+    } else if (password.length < 6) {
+      alert("Пароль должен содержать не менее 6 символов.");
       return;
     } else {
       alert(`email: ${email}, password: ${password}`);

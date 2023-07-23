@@ -27,6 +27,8 @@ export const RegistrationScreen = () => {
 
   const navigation = useNavigation();
 
+  const emailSchema = /^\S+@\S+\.\S+$/;
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -73,15 +75,21 @@ export const RegistrationScreen = () => {
   }, []);
 
   const handleRegistration = () => {
-    if (email === "" || password === "" || login === "") {
-      alert("Пожалуйста, введите адрес электронной почты и пароль.");
+    if (login === "") {
+      alert("Пожалуйста, введите логин.");
+      return;
+    } else if (!emailSchema.test(email)) {
+      alert("Пожалуйста, введите действительный адрес электронной почты.");
+      return;
+    } else if (password.length < 6) {
+      alert("Пароль должен содержать не менее 6 символов.");
       return;
     } else {
       alert(`login: ${login}, email: ${email}, password: ${password}`);
       console.log(`login: ${login}, email: ${email}, password: ${password}`);
+      navigation.navigate("Home");
+      // отправить запрос авторизации на сервер
     }
-
-    // отправить запрос авторизации на сервер
   };
 
   return (
@@ -113,7 +121,7 @@ export const RegistrationScreen = () => {
               style={[styles.input, isEmailFocused && styles.inputFocused]}
               placeholder="Адреса електронної пошти"
               onFocus={handleEmailFocus}
-              autoComplete="email"
+              autoCompleteType="email"
               value={email}
               onChangeText={setEmail}
             />
@@ -124,7 +132,7 @@ export const RegistrationScreen = () => {
                 secureTextEntry={!showPassword}
                 placeholder="Пароль"
                 onFocus={handlePasswordFocus}
-                autoComplete="password"
+                autoCompleteType="password"
                 value={password}
                 onChangeText={setPassword}
               />

@@ -25,11 +25,11 @@ export const BottomNavigation = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.addPublication}
-        onPress={() => navigation.navigate("AddPublication")}
+        onPress={() => navigation.navigate("CreatePostsScreen")}
       >
         <Feather name="plus" size={24} color="#ffffff" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+      <TouchableOpacity onPress={() => navigation.navigate("ProfileScreen")}>
         <Feather name="user" size={22} color="#212121" />
       </TouchableOpacity>
     </View>

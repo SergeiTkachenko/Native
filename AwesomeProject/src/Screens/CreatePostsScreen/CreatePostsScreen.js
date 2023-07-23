@@ -16,7 +16,7 @@ import { HeaderAddPublication } from "./HederAddPublication/HederAddPublication"
 import { DeleteBtn } from "./deleteBtn/DeleteBtn";
 import { AddForm } from "./addForm/addForm";
 
-export const AddPublication = () => {
+export const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
       <HeaderAddPublication />

@@ -1,46 +1,11 @@
-// import "react-native-gesture-handler";
-// import { StatusBar } from "expo-status-bar";
-// import { StyleSheet, View } from "react-native";
-// import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
-// import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
-// import { Home } from "./src/Screens/Home/Home";
-// import { AddPublication } from "./src/Screens/AddPublication/AddPublication";
-// import { Profile } from "./src/Screens/Profile/Profile";
-// import { NavigationContainer } from "@react-navigation/native";
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <NavigationContainer>
-//         {/* <RegistrationScreen /> */}
-//         {/* <LoginScreen /> */}
-//         {/* <Home /> */}
-//         {/* <AddPublication /> */}
-//         <Profile></Profile>
-//       </NavigationContainer>
-
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
-
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
 import { Home } from "./src/Screens/Home/Home";
-import { AddPublication } from "./src/Screens/AddPublication/AddPublication";
-import { Profile } from "./src/Screens/Profile/Profile";
+import { CreatePostsScreen } from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
+import { ProfileScreen } from "./src/Screens/ProfileScreen/ProfileScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -72,13 +37,13 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <MainStack.Screen
-          name="AddPublication"
-          component={AddPublication}
+          name="CreatePostsScreen"
+          component={CreatePostsScreen}
           options={{ headerShown: false }}
         />
         <MainStack.Screen
-          name="Profile"
-          component={Profile}
+          name="ProfileScreen"
+          component={ProfileScreen}
           options={{ headerShown: false }}
         />
       </MainStack.Navigator>
