@@ -76,13 +76,13 @@ export const RegistrationScreen = () => {
 
   const handleRegistration = () => {
     if (login === "") {
-      alert("Пожалуйста, введите логин.");
+      alert("Будь ласка, введіть логін.");
       return;
     } else if (!emailSchema.test(email)) {
-      alert("Пожалуйста, введите действительный адрес электронной почты.");
+      alert("Будь ласка, введіть дійсну адресу електронної пошти.");
       return;
     } else if (password.length < 6) {
-      alert("Пароль должен содержать не менее 6 символов.");
+      alert("Пароль повинен містити щонайменше 6 символів.");
       return;
     } else {
       alert(`login: ${login}, email: ${email}, password: ${password}`);

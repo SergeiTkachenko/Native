@@ -64,10 +64,10 @@ export const LoginScreen = () => {
 
   const handleLogin = () => {
     if (!emailSchema.test(email)) {
-      alert("Пожалуйста, введите действительный адрес электронной почты.");
+      alert("Будь ласка, введіть дійсну адресу електронної пошти.");
       return;
     } else if (password.length < 6) {
-      alert("Пароль должен содержать не менее 6 символов.");
+      alert("Пароль повинен містити щонайменше 6 символів.");
       return;
     } else {
       alert(`email: ${email}, password: ${password}`);
