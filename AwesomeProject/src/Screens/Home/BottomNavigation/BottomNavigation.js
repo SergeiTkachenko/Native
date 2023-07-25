@@ -38,7 +38,7 @@ export const BottomNavigation = () => {
 
 const styles = StyleSheet.create({
   bottomNavigation: {
-    height: 100,
+    height: "10%",
     width: "100%",
     gap: 50,
     flexDirection: "row",
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderTopColor: "#BDBDBD",
     backgroundColor: "#FFFFFF",
     borderTopWidth: 1,
-    position: "absolute",
+    // position: "absolute",
     bottom: 0,
   },
 

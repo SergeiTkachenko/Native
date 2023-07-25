@@ -9,6 +9,7 @@ import { ProfileScreen } from "./src/Screens/ProfileScreen/ProfileScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CommentsScreen } from "./src/Screens/CommentsScreen/CommentsScreen";
+import { MapScreen } from "./src/Screens/MapScreen/MapScreen";
 
 const MainStack = createStackNavigator();
 
@@ -50,6 +51,11 @@ export default function App() {
         <MainStack.Screen
           name="CommentsScreen"
           component={CommentsScreen}
+          options={{ headerShown: false }}
+        />
+        <MainStack.Screen
+          name="MapScreen"
+          component={MapScreen}
           options={{ headerShown: false }}
         />
       </MainStack.Navigator>

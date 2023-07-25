@@ -32,7 +32,10 @@ export const Publication = ({ placeName, location }) => {
             </Feather>
           </TouchableOpacity>
           <View style={styles.publicationLocation}>
-            <SimpleLineIcons name="location-pin" size={20} color="#BDBDBD" />
+            <TouchableOpacity onPress={() => navigation.navigate("MapScreen")}>
+              <SimpleLineIcons name="location-pin" size={20} color="#BDBDBD" />
+            </TouchableOpacity>
+
             <Text>{location}</Text>
           </View>
         </View>
